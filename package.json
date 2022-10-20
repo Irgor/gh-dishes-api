@@ -18,7 +18,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npx tsc",
+    "build": "npm install && npx tsc",
     "start": "node build/server.js",
     "dev": "nodemon",
     "heroku-prebuild": "npm run build"
