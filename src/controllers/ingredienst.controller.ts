@@ -92,4 +92,16 @@ const destroy = async (req: Request, res: Response, next: NextFunction) => {
     return res.status(200).json({ deleted: true });
 };
 
-export const ingredientsController = errorWrapper(create, show, get, update, destroy);
+const price = async (req: Request, res: Response, next: NextFunction) => {
+    const ingredients = await Ingredient.find();
+    let total = 0;
+    ingredients.map(ing => total += ing.total);
+
+    if (!ingredients) {
+        return res.status(201).json({ message: ErrorMessages.GET_INGREDIENTS_NOT_FOUND });
+    }
+
+    return res.status(200).json({ total: total.toFixed(2) });
+};
+
+export const ingredientsController = errorWrapper(create, show, get, update, destroy, price);
